@@ -1,51 +1,99 @@
 const teamMembers = [
     {
-      nome: "Wayne Barnett",
-      ruolo: "Founder & CEO",
-      foto: "wayne.jpg"
+        nome: "Wayne Barnett",
+        ruolo: "Sviluppatore",
+        foto: "img/wayne-barnett-founder-ceo.jpg"
     },
     {
-      nome: "Angela Caroll",
-      ruolo: "Chief Editor",
-      foto: "angela.jpg"
+        nome: "Angela Caroll",
+        ruolo: "Progettista",
+        foto: "img/angela-caroll-chief-editor.jpg"
     },
     {
-      nome: "Walter Gordon",
-      ruolo: "Office Manager",
-      foto: "walter.jpg"
+        nome: "Walter Gordon",
+        ruolo: "Responsabile",
+        foto: "img/walter-gordon-office-manager.jpg"
     },
     {
-      nome: "Angela Lopez",
-      ruolo: "Social Media Manager",
-      foto: "angela2.jpg"
+        nome: "Angela Lopez",
+        ruolo: "Sviluppatore",
+        foto: "img/angela-lopez-social-media-manager.jpg"
     },
     {
-      nome: "Scott Estrada",
-      ruolo: "Developer",
-      foto: "scott.jpg"
+        nome: "Scott Estrada",
+        ruolo: "Progettista",
+        foto: "img/scott-estrada-developer.jpg"
     },
     {
-      nome: "Barbara Ramos",
-      ruolo: "Graphics Designer",
-      foto: "barbara.jpg"
+        nome: "Barbara Ramos",
+        ruolo: "Responsabile",
+        foto: "img/barbara-ramos-graphic-designer.jpg"
     }
-  ];
-  
-  for (let i = 0; i < teamMembers.length; i++) {
-    const membro = teamMembers[i];
-    console.log("Nome: " + membro.nome);
-    console.log("Ruolo: " + membro.ruolo);
-    console.log("Foto: " + membro.foto);
-    console.log("-----------------------");
-  }
-  
+];
 
-  const teamContainer = document.getElementById("team-container");
+const teamContainer = document.getElementById("team-container");
 
-  for (let i = 0; i < teamMembers.length; i++) {
+for (let i = 0; i < teamMembers.length; i++) {
     const membro = teamMembers[i];
-    const membroString = "Nome: " + membro.nome + "<br>" +
-                         "Ruolo: " + membro.ruolo + "<br>" +
-                         "Foto: " + membro.foto + "<br><br>";
-    teamContainer.innerHTML += membroString;
-  }
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    const foto = document.createElement("img");
+    foto.src = membro.foto;
+
+    const nome = document.createElement("h2");
+    nome.textContent = membro.nome;
+
+    const ruolo = document.createElement("p");
+    ruolo.textContent = membro.ruolo;
+
+    card.appendChild(foto);
+    card.appendChild(nome);
+    card.appendChild(ruolo);
+
+    teamContainer.appendChild(card);
+}
+const addMemberForm = document.getElementById("add-member-form");
+
+addMemberForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const nameInput = document.getElementById("name");
+    const roleInput = document.getElementById("role");
+    const imageInput = document.getElementById("image");
+
+    const newMember = {
+        nome: nameInput.value,
+        ruolo: roleInput.value,
+        foto: imageInput.value
+    };
+
+    teamMembers.push(newMember);
+    console.log("Nuovo membro del team aggiunto:", newMember);
+
+    const card = createCard(newMember);
+    teamContainer.appendChild(card);
+
+
+    addMemberForm.reset();
+});
+
+function createCard(membro) {
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    const foto = document.createElement("img");
+    foto.src = membro.foto;
+
+    const nome = document.createElement("h2");
+    nome.textContent = membro.nome;
+
+    const ruolo = document.createElement("p");
+    ruolo.textContent = membro.ruolo;
+
+    card.appendChild(foto);
+    card.appendChild(nome);
+    card.appendChild(ruolo);
+
+    return card;
+}
